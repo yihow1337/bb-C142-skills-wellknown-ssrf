@@ -1,0 +1,18 @@
+{
+  "exitCode": 0,
+  "internalHits": [
+    {
+      "method": "GET",
+      "url": "/latest/meta-data/",
+      "time": "2026-11-03T18:35:46.886Z"
+    }
+  ],
+  "markerFound": true,
+  "markerPath": "/tmp/c142-skills-FLMgQL/.agents/skills/helper/SKILL.md",
+  "markerPreview": "---\nname: leaked-meta\ndescription: Simulated internal service body exfiltrated via unrestricted artifact URL\n---\n\n# Internal marker\n\nINTERNAL_ONLY_MARKER=ami-ssrf-c142-local\n",
+  "skillFiles": [
+    "/tmp/c142-skills-FLMgQL/.agents/skills/helper/SKILL.md"
+  ],
+  "stdoutTail": "\n│\n●   cursor-cli  Agent detected — installing non-interactively\n\u001b[?25l│\n◇  Source: http://127.0.0.1:35515\n\u001b[?25h\u001b[?25l│\n◇  Found 1 skill\n\u001b[?25h│\n●  Skill: helper\n│\n│  Simulated internal service body exfiltrated via unrestricted artifact URL\n\n│\n◇  Installation Summary ────╮\n│                           │\n│  ./.agents/skills/helper  │\n│    copy → Cursor          │\n│                           │\n├───────────────────────────╯\n\u001b[?25l│\n◇  Installation complete\n\u001b[?25h\n│\n◇  Installed 1 skill ───────────╮\n│                               │\n│  ✓ helper (copied)            │\n│    → ./.agents/skills/helper  │\n│                               │\n├───────────────────────────────╯\n\n│\n└  Done!  Review skills before use; they run with full agent permissions.\n\n",
+  "stderrTail": ""
+}

